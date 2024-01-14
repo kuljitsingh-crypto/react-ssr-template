@@ -1,13 +1,10 @@
 const path = require("path");
 const { ChunkExtractor } = require("@loadable/server");
-const fetch = require("node-fetch");
 const fs = require("fs");
 const lodash = require("lodash");
 const url = require("node:url");
 
 const buildPath = path.join(__dirname, "..", "build");
-
-const redirectCode = [301, 302, 303, 307, 308];
 
 // The HTML build file is generated from the `public/index.html` file
 // and used as a template for server side rendering. The application
@@ -80,45 +77,6 @@ const template = (templateData) => {
   );
 };
 
-// function redirectCallback(context, res) {
-//   res.redirect(context.status, context.headers.get("Location"));
-// }
-
-// function createFetchRequestForServer(req) {
-//   const origin = `${req.protocol}://${req.get("host")}`;
-//   const url = new URL(req.originalUrl || req.url, origin);
-
-//   const abortController = new AbortController();
-
-//   req.on("close", () => abortController.abort());
-
-//   const requestObject = {
-//     method: req.method,
-//     signal: abortController.signal,
-//     headers: req.headers,
-//   };
-
-//   if (req.method !== "GET" && req.method !== "HEAD" && req.body) {
-//     requestObject.body = req.body;
-//   }
-
-//   return new fetch.Request(url.href, requestObject);
-// }
-
-// function checkAndReturnRouterContext(resp) {
-//   return function (context) {
-//     if (context instanceof fetch.Response || !context.matches) {
-//       if (redirectCode.includes(context.status)) {
-//         redirectCallback(context, resp);
-//       } else {
-//         throw new Error(`Server response ${context.status} is not a redirect.`);
-//       }
-//       return null;
-//     }
-//     return context;
-//   };
-// }
-
 module.exports.render = (
   req,
   context,
@@ -129,11 +87,6 @@ module.exports.render = (
   // const fetchRequest = createFetchRequestForServer(req);
   //This is important as we don't want to set refernce for collectchunk to anything other than webExtractor.
   const collectWebChunk = webExtractor.collectChunks.bind(webExtractor);
-  // const data = await renderApp(
-  //   fetchRequest,
-  //   collectWebChunk,
-  //   checkAndReturnRouterContext(res)
-  // );
 
   const data = renderApp(req.url, context, collectWebChunk, preloadedState);
 
