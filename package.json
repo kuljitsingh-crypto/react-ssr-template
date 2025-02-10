@@ -104,7 +104,9 @@
     "dev-frontend": "node scripts/start.js",
     "dev-backend": "nodemon server/index.js",
     "dev-win": "SET NODE_ENV=development&&SET BABEL_ENV=development&&SET REACT_APP_API_SERVER_PORT=3500 && concurrently --kill-others \"yarn run dev-backend\" \"yarn run dev-frontend\"",
-    "dev": "export NODE_ENV=development&&export BABEL_ENV=development&& export REACT_APP_API_SERVER_PORT=3500 && concurrently --kill-others \"yarn run dev-backend\" \"yarn run dev-frontend\""
+    "dev": "export NODE_ENV=development&&export BABEL_ENV=development&& export REACT_APP_API_SERVER_PORT=3500 && concurrently --kill-others \"yarn run dev-backend\" \"yarn run dev-frontend\"",
+    "dev-server": "export NODE_ENV=development PORT=4000 REACT_APP_CANONICAL_ROOT_URL=http://localhost:4000&&yarn run build&&nodemon --watch server server/index.js",
+    "dev-server-win": "set NODE_ENV=development && set PORT=4000&& set REACT_APP_CANONICAL_ROOT_URL=http://localhost:4000&&yarn run build&&nodemon --watch server server/index.js"
   },
   "eslintConfig": {
     "extends": [

@@ -7,7 +7,7 @@ const csp = require("./csp");
 const { getExtractor, render, dataLoader } = require("./ssrUtills");
 const { default: helmet } = require("helmet");
 const CSP = process.env.REACT_APP_CSP;
-const PORT = parseInt(process.env.REACT_APP_API_SERVER_PORT || "3500");
+const PORT = parseInt(process.env.PORT, 10);
 const USING_SSL = process.env.REACT_APP_USING_SSL === "true";
 const TRUST_PROXY = process.env.SERVER_TRUST_PROXY || null;
 
